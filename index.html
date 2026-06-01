@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>סיור לימודי בנגב · 7–8 ביוני 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;500;600;700;800&family=Frank+Ruhl+Libre:wght@500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#1c2426;
+    --slate:#2f4a4d;
+    --teal:#0f6e6b;
+    --teal-deep:#0a4f4d;
+    --sand:#d9a566;
+    --sand-soft:#e8cfa6;
+    --paper:#f7f4ee;
+    --paper-2:#efe9df;
+    --line:rgba(15,110,107,.14);
+    --muted:#5e6b6b;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{font-family:'Assistant',sans-serif;background:var(--paper);color:var(--ink);line-height:1.65;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  .wrap{max-width:920px;margin:0 auto;padding:0 24px}
+  a{color:inherit}
+
+  /* ---------- NAV ---------- */
+  .nav{
+    position:sticky;top:0;z-index:50;
+    background:rgba(247,244,238,.86);backdrop-filter:blur(12px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav-inner{max-width:920px;margin:0 auto;padding:0 24px;display:flex;align-items:center;gap:6px;height:60px}
+  .brand{
+    font-family:'Frank Ruhl Libre',serif;font-weight:900;font-size:1.1rem;
+    color:var(--teal-deep);margin-left:auto;letter-spacing:-.01em;white-space:nowrap;
+  }
+  .brand .sand{color:var(--sand)}
+  .nav button{
+    font-family:'Assistant',sans-serif;font-size:.92rem;font-weight:600;
+    color:var(--muted);background:none;border:none;cursor:pointer;
+    padding:9px 14px;border-radius:10px;transition:.2s;white-space:nowrap;
+  }
+  .nav button:hover{color:var(--teal-deep);background:rgba(15,110,107,.06)}
+  .nav button.active{color:#fff;background:var(--teal)}
+
+  .page{display:none;animation:fade .45s ease}
+  .page.show{display:block}
+  @keyframes fade{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+
+  /* ---------- HERO (overview) ---------- */
+  .hero{
+    position:relative;
+    background:
+      radial-gradient(120% 90% at 85% -10%, rgba(217,165,102,.22), transparent 55%),
+      linear-gradient(155deg,var(--teal-deep) 0%, var(--slate) 70%, #243a3c 100%);
+    color:#f3efe7;padding:74px 0 84px;overflow:hidden;
+  }
+  .hero::after{content:"";position:absolute;inset:0;opacity:.05;pointer-events:none;background-image:radial-gradient(#fff 1px,transparent 1px);background-size:22px 22px}
+  .hero .wrap{position:relative;z-index:2}
+  .eyebrow{display:inline-flex;align-items:center;gap:9px;font-size:.82rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--sand-soft);border:1px solid rgba(232,207,166,.32);padding:7px 15px;border-radius:100px;margin-bottom:24px}
+  .eyebrow .dot{width:7px;height:7px;border-radius:50%;background:var(--sand)}
+  .crest-bar{display:flex;align-items:center;gap:16px;margin-bottom:28px;flex-wrap:wrap}
+  .crest{height:66px;width:auto;background:#fff;border-radius:12px;padding:6px 9px;box-shadow:0 6px 18px rgba(0,0,0,.28)}
+  .crest-cohort{display:inline-flex;align-items:center;font-family:'Frank Ruhl Libre',serif;font-weight:700;color:#fff;font-size:1.12rem;background:rgba(255,255,255,.08);border:1px solid rgba(232,207,166,.3);padding:9px 18px;border-radius:100px;letter-spacing:.01em}
+  h1{font-family:'Frank Ruhl Libre',serif;font-weight:900;line-height:1.08;font-size:clamp(2.4rem,6.2vw,4rem);margin-bottom:18px;letter-spacing:-.01em}
+  h1 .accent{color:var(--sand)}
+  .lede{font-size:clamp(1.05rem,2.3vw,1.25rem);max-width:560px;color:rgba(243,239,231,.82);font-weight:300}
+  .meta-row{display:flex;flex-wrap:wrap;gap:14px;margin-top:34px}
+  .meta{display:flex;align-items:center;gap:11px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);padding:13px 18px;border-radius:14px}
+  .meta svg{width:19px;height:19px;stroke:var(--sand);flex:none}
+  .meta .k{font-size:.72rem;color:rgba(243,239,231,.55);letter-spacing:.04em}
+  .meta .v{font-size:.95rem;font-weight:600}
+
+  /* overview day jump cards */
+  .jump{padding:54px 0 70px}
+  .jump h2,.bg h2{font-family:'Frank Ruhl Libre',serif;font-weight:700;font-size:1.7rem;margin-bottom:6px;color:var(--ink)}
+  .jump .sub,.bg .sub{color:var(--muted);margin-bottom:28px}
+  .jcards{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  .jcard{
+    cursor:pointer;text-align:right;background:#fff;border:1px solid var(--line);
+    border-radius:18px;padding:26px 24px;transition:.25s;position:relative;overflow:hidden;
+  }
+  .jcard:hover{transform:translateY(-4px);box-shadow:0 16px 40px rgba(15,110,107,.12);border-color:rgba(15,110,107,.3)}
+  .jcard .n{font-family:'Frank Ruhl Libre',serif;font-weight:900;font-size:3rem;line-height:.9;color:var(--teal);opacity:.22;position:absolute;left:18px;top:14px}
+  .jcard .lbl{font-size:.74rem;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:var(--sand)}
+  .jcard .t{font-family:'Frank Ruhl Libre',serif;font-weight:700;font-size:1.5rem;margin:2px 0 4px}
+  .jcard .d{color:var(--muted);font-size:.95rem}
+  .jcard .go{margin-top:16px;display:inline-flex;align-items:center;gap:6px;font-weight:600;color:var(--teal-deep);font-size:.92rem}
+  .jcard .go svg{width:16px;height:16px;stroke:var(--teal-deep);transition:.2s}
+  .jcard:hover .go svg{transform:translateX(-4px)}
+
+  /* ---------- DAY PAGE ---------- */
+  .day-hero{background:var(--paper-2);border-bottom:1px solid var(--line);padding:44px 0 34px}
+  .day-hero .wrap{display:flex;align-items:flex-end;gap:20px}
+  .day-num{font-family:'Frank Ruhl Libre',serif;font-weight:900;font-size:clamp(3.4rem,11vw,5.4rem);line-height:.78;color:var(--teal);letter-spacing:-.03em}
+  .day-meta .label{font-size:.78rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--sand)}
+  .day-meta .title{font-family:'Frank Ruhl Libre',serif;font-weight:700;font-size:clamp(1.6rem,4vw,2.3rem);color:var(--ink);line-height:1.05}
+  .day-meta .date{color:var(--muted);font-size:1rem;margin-top:3px}
+
+  .timeline{position:relative;padding:40px 26px 30px 0;max-width:920px;margin:0 auto;padding-right:50px}
+  .timeline::before{content:"";position:absolute;top:48px;bottom:38px;right:31px;width:2px;background:linear-gradient(var(--teal),var(--sand));opacity:.4}
+  .slot{position:relative;display:grid;grid-template-columns:118px 1fr;gap:22px;padding:9px 0;align-items:start}
+  .slot::before{content:"";position:absolute;right:-25px;top:24px;width:11px;height:11px;border-radius:50%;background:var(--paper);border:2.5px solid var(--teal);box-shadow:0 0 0 4px var(--paper)}
+  .slot.meal::before,.slot.social::before{border-color:var(--sand)}
+  .time{font-weight:700;font-size:.9rem;color:var(--teal-deep);background:var(--paper-2);border-radius:9px;padding:7px 10px;text-align:center;font-variant-numeric:tabular-nums;direction:ltr}
+  .slot.meal .time,.slot.social .time{color:#8a5a1e;background:#f3e6d0}
+  .card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px 18px;box-shadow:0 1px 2px rgba(20,40,40,.04);transition:.25s}
+  .card:hover{transform:translateX(-4px);box-shadow:0 8px 26px rgba(15,110,107,.1);border-color:rgba(15,110,107,.28)}
+  .card .h{font-weight:700;font-size:1.04rem;color:var(--ink);margin-bottom:3px}
+  .card .s{color:var(--muted);font-size:.92rem}
+  .card .s b{color:var(--slate);font-weight:600}
+  .maps{display:flex;gap:8px;margin-top:11px;flex-wrap:wrap}
+  .mpin{display:inline-flex;align-items:center;gap:5px;font-size:.78rem;font-weight:600;padding:5px 11px;border-radius:8px;text-decoration:none;border:1px solid var(--line);transition:.2s}
+  .mpin svg{width:13px;height:13px;flex:none}
+  .mpin.g{color:var(--teal-deep)}
+  .mpin.g svg{stroke:var(--teal)}
+  .mpin.g:hover{background:rgba(15,110,107,.08);border-color:rgba(15,110,107,.3)}
+  .mpin.w{color:#3f5b8a}
+  .mpin.w svg{stroke:#3f5b8a}
+  .mpin.w:hover{background:#eef1f7;border-color:#c9d3e6}
+  .rcard ul{margin:0 0 16px;padding:0;list-style:none;display:grid;gap:6px}
+  .rcard li{position:relative;padding-right:18px;color:var(--muted);font-size:.92rem}
+  .rcard li::before{content:"";position:absolute;right:0;top:9px;width:6px;height:6px;border-radius:50%;background:var(--sand)}
+  .tag{display:inline-block;font-size:.7rem;font-weight:600;letter-spacing:.05em;padding:3px 9px;border-radius:100px;margin-bottom:7px}
+  .tag.tour{background:rgba(15,110,107,.1);color:var(--teal-deep)}
+  .tag.talk{background:rgba(47,74,77,.1);color:var(--slate)}
+  .tag.meal{background:#f3e6d0;color:#8a5a1e}
+  .tag.logi{background:#eceae5;color:#6b6b63}
+  .note{background:linear-gradient(180deg,#fff,var(--paper));border:1px dashed var(--sand);border-radius:14px;padding:14px 18px;margin:8px auto 0;max-width:920px;color:var(--muted);font-size:.9rem;display:flex;gap:10px;align-items:flex-start}
+  .note svg{width:18px;height:18px;stroke:var(--sand);flex:none;margin-top:2px}
+  .all-day{margin:24px auto 0;max-width:872px;background:var(--teal-deep);color:#eef4f3;border-radius:14px;padding:16px 20px;font-size:.95rem;display:flex;align-items:center;gap:12px}
+  .all-day svg{width:20px;height:20px;stroke:var(--sand-soft);flex:none}
+
+  .day-nav{max-width:920px;margin:36px auto 70px;padding:0 24px;display:flex;justify-content:space-between;gap:12px}
+  .pill{font-weight:600;font-size:.95rem;background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px 18px;cursor:pointer;color:var(--teal-deep);transition:.2s;display:inline-flex;align-items:center;gap:8px}
+  .pill:hover{background:var(--teal);color:#fff;border-color:var(--teal)}
+  .pill svg{width:16px;height:16px;stroke:currentColor}
+
+  /* ---------- BACKGROUND PAGE ---------- */
+  .bg{padding:54px 0 30px}
+  .res{display:grid;gap:18px;margin-bottom:14px}
+  .rcard{background:#fff;border:1px solid var(--line);border-radius:16px;padding:24px 24px;transition:.25s;position:relative}
+  .rcard:hover{box-shadow:0 12px 34px rgba(15,110,107,.1);border-color:rgba(15,110,107,.26)}
+  .rcard .kind{font-size:.72rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--sand);margin-bottom:8px;display:flex;align-items:center;gap:8px}
+  .rcard .kind svg{width:16px;height:16px;stroke:var(--teal);flex:none}
+  .rcard h3{font-family:'Frank Ruhl Libre',serif;font-weight:700;font-size:1.3rem;color:var(--ink);margin-bottom:6px;line-height:1.25}
+  .rcard .by{color:var(--slate);font-size:.9rem;font-weight:600;margin-bottom:10px}
+  .rcard p{color:var(--muted);font-size:.96rem;margin-bottom:16px}
+  .rlink{display:inline-flex;align-items:center;gap:7px;font-weight:600;font-size:.92rem;color:#fff;background:var(--teal);padding:9px 16px;border-radius:10px;text-decoration:none;transition:.2s}
+  .rlink:hover{background:var(--teal-deep)}
+  .rlink svg{width:15px;height:15px;stroke:#fff}
+  .rlink.ghost{background:transparent;color:var(--teal-deep);border:1px solid var(--line);margin-right:8px}
+  .rlink.ghost:hover{background:rgba(15,110,107,.06)}
+  .rlink.ghost svg{stroke:var(--teal-deep)}
+
+  .placeholder{
+    border:2px dashed var(--line);border-radius:16px;padding:30px 24px;text-align:center;
+    color:var(--muted);background:linear-gradient(180deg,#fff,var(--paper));margin-top:6px;
+  }
+  .placeholder svg{width:26px;height:26px;stroke:var(--sand);margin-bottom:8px}
+  .placeholder b{color:var(--slate);display:block;font-size:1.05rem;margin-bottom:4px}
+  .disc{font-size:.82rem;color:var(--muted);margin-top:22px;line-height:1.5;border-top:1px solid var(--line);padding-top:16px}
+
+  button.rlink{font-family:'Assistant',sans-serif;cursor:pointer;border:none}
+
+  .dhead{background:radial-gradient(120% 90% at 85% -10%,rgba(217,165,102,.2),transparent 55%),linear-gradient(155deg,var(--teal-deep),var(--slate));color:#f3efe7;padding:48px 0 42px}
+  .dhead .tag-top{font-size:.78rem;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:var(--sand-soft)}
+  .dhead h2{font-family:'Frank Ruhl Libre',serif;font-weight:900;font-size:clamp(1.9rem,5vw,2.8rem);margin:6px 0 8px;color:#fff;line-height:1.1}
+  .dhead .by{color:rgba(243,239,231,.72);font-size:.98rem}
+  .lead-stat{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin-top:26px}
+  .ls{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);border-radius:14px;padding:16px 18px}
+  .ls .num{font-family:'Frank Ruhl Libre',serif;font-weight:900;font-size:2rem;color:var(--sand);line-height:1}
+  .ls .cap{font-size:.82rem;color:rgba(243,239,231,.78);margin-top:7px;line-height:1.35}
+  .sec{padding:34px 0 8px;border-bottom:1px solid var(--line)}
+  .sec:last-of-type{border-bottom:none}
+  .sec .stitle{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+  .sec .snum{font-family:'Frank Ruhl Libre',serif;font-weight:900;font-size:1.3rem;color:var(--teal);width:38px;height:38px;border-radius:10px;background:rgba(15,110,107,.1);display:grid;place-items:center;flex:none}
+  .sec h3{font-family:'Frank Ruhl Libre',serif;font-weight:700;font-size:1.4rem;color:var(--ink)}
+  .sec p{color:#3a4647;margin-bottom:12px}
+  .sec p b{color:var(--teal-deep)}
+  .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin:6px 0 16px}
+  .stat{background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+  .stat .n{font-family:'Frank Ruhl Libre',serif;font-weight:900;font-size:1.45rem;color:var(--teal-deep);line-height:1}
+  .stat .l{font-size:.84rem;color:var(--muted);margin-top:6px;line-height:1.35}
+  .flist{list-style:none;padding:0;margin:6px 0 16px;display:grid;gap:10px}
+  .flist li{background:var(--paper-2);border-radius:11px;padding:12px 15px 12px 15px;font-size:.94rem;color:#3a4647;position:relative;padding-right:32px}
+  .flist li::before{content:"";position:absolute;right:14px;top:18px;width:7px;height:7px;border-radius:50%;background:var(--sand)}
+  .flist li b{color:var(--teal-deep)}
+  .callout{background:linear-gradient(180deg,#fff,var(--paper));border:1px dashed var(--sand);border-radius:14px;padding:15px 18px;color:var(--muted);font-size:.92rem;margin:6px 0 14px;display:flex;gap:10px;align-items:flex-start}
+  .callout svg{width:18px;height:18px;stroke:var(--sand);flex:none;margin-top:2px}
+
+  footer{background:var(--ink);color:rgba(247,244,238,.75);text-align:center;padding:40px 24px;font-size:.92rem}
+  footer .big{font-family:'Frank Ruhl Libre',serif;color:#fff;font-size:1.25rem;font-weight:700;margin-bottom:8px}
+  footer .sand{color:var(--sand)}
+
+  @media(max-width:640px){
+    .jcards{grid-template-columns:1fr}
+    .slot{grid-template-columns:84px 1fr;gap:13px}
+    .timeline{padding-right:40px}
+    .timeline::before{right:25px}
+    .slot::before{right:-21px}
+    .time{font-size:.78rem;padding:6px 5px}
+    .brand{font-size:.98rem}
+    .nav button{padding:9px 9px;font-size:.86rem}
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-inner">
+    <button class="active" data-go="overview">סקירה</button>
+    <button data-go="day1">יום א׳ · 7.6</button>
+    <button data-go="day2">יום ב׳ · 8.6</button>
+    <button data-go="bg">מידע ורקע</button>
+    <span class="brand">נגב <span class="sand">·</span> 2026</span>
+  </div>
+</nav>
+
+<!-- ========== OVERVIEW ========== -->
+<section class="page show" id="overview">
+  <div class="hero">
+    <div class="wrap">
+      <span class="eyebrow"><span class="dot"></span>סיור לימודי · משלחת מקצועית</span>
+      <h1>מסע אל <span class="accent">לב הנגב</span><br>בין שימור לשינוי</h1>
+      <p class="lede">יומיים של תצפיות, פגישות בשטח וסקירות מומחים — דמוגרפיה, התיישבות, חברה בדואית ועיירות פיתוח במרחב הדרום.</p>
+      <div class="meta-row">
+        <div class="meta"><svg fill="none" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg><div><div class="k">תאריכים</div><div class="v">7–8 ביוני 2026</div></div></div>
+        <div class="meta"><svg fill="none" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 12-9 12s-9-5-9-12a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg><div><div class="k">מסלול</div><div class="v">שדרות · בארי · ב"ש · לקיה · ערד</div></div></div>
+        <div class="meta"><svg fill="none" stroke-width="2" viewBox="0 0 24 24"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 9h.01M15 9h.01M9 13h.01M15 13h.01"/></svg><div><div class="k">לינה</div><div class="v">מלון קדמא</div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="jump wrap">
+    <h2>תוכנית הסיור</h2>
+    <p class="sub">בחרו יום כדי לצפות בלו"ז המלא, או עברו לעמוד הרקע והמקורות.</p>
+    <div class="jcards">
+      <div class="jcard" data-go="day1">
+        <span class="n">01</span>
+        <div class="lbl">ציר תנועה ולמידה</div>
+        <div class="t">יום ראשון</div>
+        <div class="d">07 ביוני · שדרות → בארי → באר שבע → לקיה → מלון קדמא</div>
+        <span class="go">לצפייה בלו"ז<svg fill="none" stroke-width="2" viewBox="0 0 24 24"><path d="M19 12H5M11 18l-6-6 6-6"/></svg></span>
+      </div>
+      <div class="jcard" data-go="day2">
+        <span class="n">02</span>
+        <div class="lbl">העמקה במרחב</div>
+        <div class="t">יום שני</div>
+        <div class="d">08 ביוני · חוות זית המדבר — סקירות, דמוגרפיה ועיריית ערד</div>
+        <span class="go">לצפייה בלו"ז<svg fill="none" stroke-width="2" viewBox="0 0 24 24"><path d="M19 12H5M11 18l-6-6 6-6"/></svg></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== DAY 1 ========== -->
+<section class="page" id="day1">
+  <div class="day-hero"><div class="wrap">
+    <div class="day-num">01</div>
+    <div class="day-meta"><div class="label">ציר תנועה ולמידה</div><div class="title">יום ראשון</div><div class="date">07 ביוני 2026</div></div>
+  </div></div>
+
+  <div class="timeline">
+    <div class="slot tour"><div class="time">09:00–09:30</div><div class="card"><span class="tag tour">תצפית</span><div class="h">מצפה קובי, שדרות</div><div class="s">התכנסות, ארוחת בוקר קלה ותצפית · <b>אלי גוזלן</b></div><div class="maps"><a class="mpin g" href="https://www.google.com/maps/search/?api=1&query=%D7%9E%D7%A6%D7%A4%D7%94%20%D7%A7%D7%95%D7%91%D7%99%20%D7%A9%D7%93%D7%A8%D7%95%D7%AA" target="_blank" rel="noopener"><svg fill="none" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 12-9 12s-9-5-9-12a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>מפות</a><a class="mpin w" href="https://waze.com/ul?q=%D7%9E%D7%A6%D7%A4%D7%94%20%D7%A7%D7%95%D7%91%D7%99%20%D7%A9%D7%93%D7%A8%D7%95%D7%AA&navigate=yes" target="_blank" rel="noopener"><svg fill="none" stroke-width="2" viewBox="0 0 24 24"><path d="M3 11l19-9-9 19-2-8-8-2z"/></svg>Waze</a></div></div></div>
+    <div class="slot talk"><div class="time">09:30–11:00</div><div class="card"><span class="tag talk">סקירה</span><div class="h">סקירה מנהלתית</div><div class="s"><b>שרונה אזולאי</b> · מנהלת אגף בדואים, רמ"י</div></div></div>
+    <div class="slot talk"><div class="time">11:00–12:30</div><div class="card"><span class="tag talk">סקירה</span><div class="h">בארי</div><div class="s">סקירה מאת <b>אלוף (במיל') יוסי בכר</b></div><div class="maps"><a class="mpin g" href="https://www.google.com/maps/search/?api=1&query=%D7%A7%D7%99%D7%91%D7%95%D7%A5%20%D7%91%D7%90%D7%A8%D7%99" target="_blank" rel="noopener"><svg fill="none" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 12-9 12s-9-5-9-12a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>מפות</a><a class="mpin w" href="https://waze.com/ul?q=%D7%A7%D7%99%D7%91%D7%95%D7%A5%20%D7%91%D7%90%D7%A8%D7%99&navigate=yes" target="_blank" rel="noopener"><svg fill="none" stroke-width="2" viewBox="0 0 24 24"><path d="M3 11l19-9-9 19-2-8-8-2z"/></svg>Waze</a></div></div></div>
+    <div class="slot meal"><div class="time">12:30–14:30</div><div class="card"><span class="tag meal">צהריים</span><div class="h">באר שבע</div><div class="s">ארוחת צהריים במסעדת שופן</div><div class="maps"><a class="mpin g" href="https://www.google.com/maps/search/?api=1&query=%D7%9E%D7%A1%D7%A2%D7%93%D7%AA%20%D7%A9%D7%95%D7%A4%D7%9F%20%D7%91%D7%90%D7%A8%20%D7%A9%D7%91%D7%A2" target="_blank" rel="noopener"><svg fill="none" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 12-9 12s-9-5-9-12a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>מפות</a><a class="mpin w" href="https://waze.com/ul?q=%D7%9E%D7%A1%D7%A2%D7%93%D7%AA%20%D7%A9%D7%95%D7%A4%D7%9F%20%D7%91%D7%90%D7%A8%20%D7%A9%D7%91%D7%A2&navigate=yes" target="_blank" rel="noopener"><svg fill="none" stroke-width="2" viewBox="0 0 24 24"><path d="M3 11l19-9-9 19-2-8-8-2z"/></svg>Waze</a></div></div></div>
+    <div class="slot tour"><div class="time">14:30–16:30</div><div class="card"><span class="tag tour">סיור</span><div class="h">לקיה — סיור וסקירה</div><div class="s"><b>מאיר דויטש</b> · מנכ"ל רגבים</div><div class="maps"><a class="mpin g" href="https://www.google.com/maps/search/?api=1&query=%D7%9C%D7%A7%D7%99%D7%94%20%D7%A0%D7%92%D7%91" target="_blank" rel="noopener"><svg fill="none" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 12-9 12s-9-5-9-12a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>מפות</a><a class="mpin w" href="https://waze.com/ul?q=%D7%9C%D7%A7%D7%99%D7%94%20%D7%A0%D7%92%D7%91&navigate=yes" target="_blank" rel="noopener"><svg fill="none" stroke-width="2" viewBox="0 0 24 24"><path d="M3 11l19-9-9 19-2-8-8-2z"/></svg>Waze</a></div></div></div>
+    <div class="slot logi"><div class="time">16:30–17:30</div><div class="card"><span class="tag logi">לוגיסטיקה</span><div class="h">הגעה למלון קדמא</div><div class="s">קבלת חדרים והתארגנות</div><div class="maps"><a class="mpin g" href="https://www.google.com/maps/search/?api=1&query=%D7%99%D7%A9%D7%A8%D7%95%D7%98%D7%9C%20%D7%A7%D7%93%D7%9E%D7%90%20%D7%A9%D7%93%D7%94%20%D7%91%D7%95%D7%A7%D7%A8" target="_blank" rel="noopener"><svg fill="none" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 12-9 12s-9-5-9-12a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>מפות</a><a class="mpin w" href="https://waze.com/ul?q=%D7%99%D7%A9%D7%A8%D7%95%D7%98%D7%9C%20%D7%A7%D7%93%D7%9E%D7%90%20%D7%A9%D7%93%D7%94%20%D7%91%D7%95%D7%A7%D7%A8&navigate=yes" target="_blank" rel="noopener"><svg fill="none" stroke-width="2" viewBox="0 0 24 24"><path d="M3 11l19-9-9 19-2-8-8-2z"/></svg>Waze</a></div></div></div>
+    <div class="slot talk"><div class="time">18:30–20:00</div><div class="card"><span class="tag talk">הרצאה</span><div class="h">עיירות פיתוח בנגב ואתגרים בשינוי</div><div class="s"><b>אלישיב רייכנר</b></div></div></div>
+    <div class="slot meal"><div class="time">20:00–21:00</div><div class="card"><span class="tag meal">ערב</span><div class="h">ארוחת ערב</div><div class="s">מלון קדמא</div></div></div>
+    <div class="slot social"><div class="time">21:00–22:30</div><div class="card"><span class="tag meal">חברתי</span><div class="h">ערב חברתי</div><div class="s">במלון</div></div></div>
+  </div>
+
+  <div class="day-nav">
+    <span></span>
+    <button class="pill" data-go="day2">יום ב׳ · 8.6<svg fill="none" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+  </div>
+</section>
+
+<!-- ========== DAY 2 ========== -->
+<section class="page" id="day2">
+  <div class="day-hero"><div class="wrap">
+    <div class="day-num">02</div>
+    <div class="day-meta"><div class="label">העמקה במרחב</div><div class="title">יום שני</div><div class="date">08 ביוני 2026</div></div>
+  </div></div>
+
+  <div class="timeline">
+    <div class="slot meal"><div class="time">07:00–08:30</div><div class="card"><span class="tag meal">בוקר</span><div class="h">מלון קדמא</div><div class="s">ארוחת בוקר וצ'ק-אאוט</div><div class="maps"><a class="mpin g" href="https://www.google.com/maps/search/?api=1&query=%D7%99%D7%A9%D7%A8%D7%95%D7%98%D7%9C%20%D7%A7%D7%93%D7%9E%D7%90%20%D7%A9%D7%93%D7%94%20%D7%91%D7%95%D7%A7%D7%A8" target="_blank" rel="noopener"><svg fill="none" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 12-9 12s-9-5-9-12a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>מפות</a><a class="mpin w" href="https://waze.com/ul?q=%D7%99%D7%A9%D7%A8%D7%95%D7%98%D7%9C%20%D7%A7%D7%93%D7%9E%D7%90%20%D7%A9%D7%93%D7%94%20%D7%91%D7%95%D7%A7%D7%A8&navigate=yes" target="_blank" rel="noopener"><svg fill="none" stroke-width="2" viewBox="0 0 24 24"><path d="M3 11l19-9-9 19-2-8-8-2z"/></svg>Waze</a></div></div></div>
+    <div class="slot logi"><div class="time">08:30–09:00</div><div class="card"><span class="tag logi">מעבר</span><div class="h">חוות זית המדבר</div><div class="s">נסיעה אל לב הנגב</div><div class="maps"><a class="mpin g" href="https://www.google.com/maps/search/?api=1&query=%D7%97%D7%95%D7%95%D7%AA%20%D7%96%D7%99%D7%AA%20%D7%94%D7%9E%D7%93%D7%91%D7%A8%20%D7%A8%D7%9E%D7%AA%20%D7%A0%D7%92%D7%91" target="_blank" rel="noopener"><svg fill="none" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 12-9 12s-9-5-9-12a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>מפות</a><a class="mpin w" href="https://waze.com/ul?q=%D7%97%D7%95%D7%95%D7%AA%20%D7%96%D7%99%D7%AA%20%D7%94%D7%9E%D7%93%D7%91%D7%A8%20%D7%A8%D7%9E%D7%AA%20%D7%A0%D7%92%D7%91&navigate=yes" target="_blank" rel="noopener"><svg fill="none" stroke-width="2" viewBox="0 0 24 24"><path d="M3 11l19-9-9 19-2-8-8-2z"/></svg>Waze</a></div></div></div>
+    <div class="slot talk"><div class="time">09:00–09:30</div><div class="card"><span class="tag talk">סקירה</span><div class="h">סקירה על המקום</div><div class="s">מאת בעלי החווה</div></div></div>
+    <div class="slot talk"><div class="time">09:30–11:00</div><div class="card"><span class="tag talk">סקירה</span><div class="h">התפתחות וחדשנות</div><div class="s"><b>יהודה אבני</b> · מנהל מרחב דרום, החטיבה להתיישבות</div></div></div>
+    <div class="slot talk"><div class="time">11:15–12:00</div><div class="card"><span class="tag talk">סקירה</span><div class="h">בין דמוגרפיה לפשיעה</div><div class="s"><b>סנ"צ (בדימוס) יניב שלמה</b></div></div></div>
+    <div class="slot talk"><div class="time">12:15–13:30</div><div class="card"><span class="tag talk">סקירה</span><div class="h">אתגרי העיר והנגב</div><div class="s"><b>יאיר מעיין</b> · ראש עיריית ערד</div></div></div>
+    <div class="slot meal"><div class="time">14:00–15:00</div><div class="card"><span class="tag meal">צהריים</span><div class="h">חוות זית המדבר</div><div class="s">ארוחת צהריים</div></div></div>
+    <div class="slot tour"><div class="time">15:00–16:00</div><div class="card"><span class="tag tour">סיכום</span><div class="h">סיכום ורפלקציה</div><div class="s">ופיזור</div></div></div>
+  </div>
+
+  <div class="all-day"><svg fill="none" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2v2M12 20v2M2 12h2M20 12h2M5 5l1.5 1.5M17.5 17.5L19 19M19 5l-1.5 1.5M6.5 17.5L5 19"/><circle cx="12" cy="12" r="4"/></svg><span>לאורך כל היום נשהה בחוות זית המדבר</span></div>
+
+  <div class="day-nav">
+    <button class="pill" data-go="day1"><svg fill="none" stroke-width="2" viewBox="0 0 24 24"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>יום א׳ · 7.6</button>
+    <button class="pill" data-go="bg">מידע ורקע<svg fill="none" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+  </div>
+</section>
+
+<!-- ========== BACKGROUND ========== -->
+<section class="page" id="bg">
+  <div class="bg wrap">
+    <h2>מידע ורקע</h2>
+    <p class="sub">חומרי קריאה ומקורות להעמקה לקראת הסיור. לחיצה על "למקור" פותחת את המסמך המקורי.</p>
+
+    <div class="res">
+
+      <div class="rcard">
+        <div class="kind"><svg fill="none" stroke-width="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/></svg>דו"ח ועדה ציבורית</div>
+        <h3>דו"ח ועדת גולדברג להסדרת התיישבות הבדואים בנגב</h3>
+        <div class="by">בראשות השופט (בדימ') אליעזר גולדברג · 2008</div>
+        <p>תמצית מסקנות הוועדה הציבורית שמונתה להסדרת ההתיישבות הבדואית בנגב: בין היתר המלצה להכיר בחלק מהכפרים הבלתי מוכרים, ליצור מסלול תכנוני מהיר ולפעול לפתרון הוגן ובר-ביצוע של סוגיית הקרקעות.</p>
+        <a class="rlink" href="https://www.kkl.org.il/files/karka/66/karka-66-2009-1.pdf" target="_blank" rel="noopener">למקור (קק"ל)<svg fill="none" stroke-width="2" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg></a>
+      </div>
+
+      <div class="rcard">
+        <div class="kind"><svg fill="none" stroke-width="2" viewBox="0 0 24 24"><path d="M3 3h18v18H3zM3 9h18M9 21V9"/></svg>תגובה וניתוח</div>
+        <h3>דו"ח ועדת גולדברג — מבט האגודה לזכויות האזרח</h3>
+        <div class="by">האגודה לזכויות האזרח בישראל (ACRI)</div>
+        <p>ניתוח ביקורתי של המלצות ועדת גולדברג מנקודת מבט של זכויות אדם, הבוחן את ההשלכות על הכפרים הבלתי מוכרים ועל סוגיית הקרקע.</p>
+        <a class="rlink" href="https://law.acri.org.il/he/12108" target="_blank" rel="noopener">למקור (האגודה)<svg fill="none" stroke-width="2" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg></a>
+      </div>
+
+      <div class="rcard">
+        <div class="kind"><svg fill="none" stroke-width="2" viewBox="0 0 24 24"><path d="M3 3v18h18M7 14l4-4 3 3 5-6"/></svg>מחקר מדיניות</div>
+        <h3>ישראל 2025: פרשת דרכים דמוגרפית</h3>
+        <div class="by">אלכס וינרב · מרכז טאוב לחקר המדיניות החברתית</div>
+        <p>סקירה דמוגרפית עדכנית: קצב גידול האוכלוסייה צפוי לרדת לכ-0.9% — שפל חסר תקדים. הדו"ח עוסק במגמות תמותה, פריון והגירה, וכן בהבדלים בין קבוצות האוכלוסייה השונות בישראל.</p>
+        <a class="rlink" href="https://www.taubcenter.org.il/wp-content/uploads/2025/12/Demography-2025-HEB-3.pdf" target="_blank" rel="noopener">למקור (מרכז טאוב)<svg fill="none" stroke-width="2" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg></a>
+        <button class="rlink ghost" data-go="taub">תקציר מנהלים מורחב<svg fill="none" stroke-width="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6M9 13h6M9 17h4"/></svg></button>
+      </div>
+
+      <div class="rcard">
+        <div class="kind"><svg fill="none" stroke-width="2" viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 016.5 17H20M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg>מאמר אקדמי</div>
+        <h3>שבטיות, דת ומדינה בחברה הבדואית בנגב: בין שימור לשינוי</h3>
+        <div class="by">חבצלת יהל ועאטף אבו-עג'אג' · עדכן אסטרטגי (INSS), 2021</div>
+        <p>המאמר מיישם את תאוריית השדות של בורדייה כדי לבחון את שלושת השדות המרכזיים שבהם פועלת החברה הבדואית בנגב — שבטיות, דת ומדינה — והדינמיקה ביניהם בין שימור לשינוי.</p>
+        <a class="rlink" href="https://www.inss.org.il/he/strategic_assessment/tribes-religion-and-state/" target="_blank" rel="noopener">למקור (INSS)<svg fill="none" stroke-width="2" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg></a>
+        <a class="rlink ghost" href="https://www.inss.org.il/he/wp-content/uploads/sites/2/2022/12/Adkan24.2Heb_e-16.pdf" target="_blank" rel="noopener">PDF מלא</a>
+      </div>
+
+      <div class="rcard">
+        <div class="kind"><svg fill="none" stroke-width="2" viewBox="0 0 24 24"><path d="M9 11l3 3L22 4M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>מסמך עמדה · תנועה</div>
+        <h3>מבחן הנגב — תוכנית תנועת רגבים</h3>
+        <div class="by">תנועת רגבים · מאי 2017</div>
+        <p>מסמך עמדה המציג את תפיסת התנועה להסדרת ההתיישבות הבדואית בנגב. הרציונל המרכזי: ניתוק בין הסדרת הפזורה (צורך מיידי) לבין תביעות הבעלות על הקרקע (הליך ארוך טווח), ופעולה בכלים ובחוקים הקיימים ללא חוק כולל. עיקרי התוכנית:</p>
+        <ul>
+          <li>ניתוק הסדרת הפזורה מתביעות הבעלות, ופעולה בחוק המקרקעין והתכנון הקיימים</li>
+          <li>מסלולי פיצוי קצובים בזמן ותמרוץ הסדרה מוקדמת (לרבות "מסלול זהב" בתוך היישובים)</li>
+          <li>פיתוח שכונות קליטה ביישובי הקבע על אדמות מדינה, תוך שמירת מרקם קהילתי-שבטי</li>
+          <li>אכיפה שיטתית תומכת הסדרה, מסונכרנת עם פיתוח התשתיות בשכונות הקולטות</li>
+        </ul>
+        <a class="rlink" href="https://www.regavim.org/" target="_blank" rel="noopener">אתר רגבים<svg fill="none" stroke-width="2" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg></a>
+      </div>
+
+    </div>
+
+    <!-- room for more, as you add content -->
+    <div class="placeholder">
+      <svg fill="none" stroke-width="2" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
+      <b>בקרוב — חומרים נוספים</b>
+      כאן יתווספו מקורות, מצגות וקישורים נוספים שתעלה לקראת הסיור.
+    </div>
+
+    <p class="disc">הקישורים מפנים למקורות חיצוניים שפורסמו על ידי הגופים המצוינים (קק"ל, האגודה לזכויות האזרח, מרכז טאוב, INSS ותנועת רגבים). התמציות נכתבו לצורך התמצאות בלבד; לתוכן המלא יש לעיין במסמך המקורי.</p>
+  </div>
+</section>
+
+<!-- ========== TAUB DEMOGRAPHIC DETAIL ========== -->
+<section class="page" id="taub">
+  <div class="detail">
+    <div class="dhead"><div class="wrap">
+      <div class="tag-top">תקציר מנהלים · מחקר מדיניות</div>
+      <h2>ישראל 2025 — פרשת דרכים דמוגרפית</h2>
+      <div class="by">אלכס וינרב · מרכז טאוב לחקר המדיניות החברתית</div>
+      <div class="lead-stat">
+        <div class="ls"><div class="num">0.9%</div><div class="cap">קצב גידול האוכלוסייה ב-2025 — שפל מאז קום המדינה</div></div>
+        <div class="ls"><div class="num">־37,000</div><div class="cap">הגירה נטו צפויה ב-2025 (כולל עולים)</div></div>
+        <div class="ls"><div class="num">+77%</div><div class="cap">עלייה צפויה במספר הפטירות עד 2040</div></div>
+      </div>
+    </div></div>
+
+    <div class="wrap">
+
+      <div class="sec">
+        <p style="margin-top:24px">מאז קום המדינה ירד קצב גידול האוכלוסייה מתחת ל-1.5% רק פעמיים (1981, 1983). ב-2025 נשבר השיא וקצב הגידול צנח ל<b>כ-0.9% בלבד</b> — מעבר ל"משטר דמוגרפי" חדש. שלוש מגמות מובילות אותו: ירידה עקבית בפריון, עלייה הדרגתית בפטירות, ובעיקר הפיכת ההגירה נטו לשלילית החל מ-2024.</p>
+      </div>
+
+      <div class="sec">
+        <div class="stitle"><div class="snum">1</div><h3>תמותה — גל ההזדקנות המתקרב</h3></div>
+        <p>תוחלת החיים בישראל מהגבוהות בעולם: <b>83.7 שנים</b> (2023) — מקום רביעי, אחרי שווייץ, יפן וספרד. מלחמת 7 באוקטובר השפיעה בעיקר על גברים צעירים, בשל המשקל הסטטיסטי של מוות בגיל צעיר.</p>
+        <div class="stats">
+          <div class="stat"><div class="n">82.4 → 81.5</div><div class="l">תוחלת חיים, גברים יהודים (השפעת המלחמה)</div></div>
+          <div class="stat"><div class="n">46K → 51K</div><div class="l">פטירות שנתיות, 2018 → 2024</div></div>
+          <div class="stat"><div class="n">+71% / +111%</div><div class="l">עליית פטירות עד 2040 — יהודים / ערבים</div></div>
+        </div>
+        <p>המספר המוחלט של הפטירות צפוי לזנק בכ-77% עד 2040, עם כניסת קבוצות גיל גדולות לשנות ה-70 וה-80 לחייהן.</p>
+      </div>
+
+      <div class="sec">
+        <div class="stitle"><div class="snum">2</div><h3>פריון וילודה — המהפכה השקטה</h3></div>
+        <p>מספר הלידות השנתי יציב להפליא (179–185 אלף), אך היציבות מסתירה שינוי מבני עמוק.</p>
+        <ul class="flist">
+          <li><b>מוסלמיות ודרוזיות:</b> ירידה של 30% בפריון ב-20 השנים האחרונות (TFR מוסלמי 2.71 ב-2025).</li>
+          <li><b>נוצריות ואחרות:</b> ירידה של 30% ב-12 השנים האחרונות.</li>
+          <li><b>יהודיות:</b> הקבוצה היחידה שפריונה יציב ואף עלה מאז 2005, עם "בייבי-בום" מתון ב-2024.</li>
+        </ul>
+        <p><b>מומנטום אוכלוסייתי:</b> הלידות המוסלמיות נשארו יציבות למרות ירידה של 18% בפריון, בזכות גידול במספר הנשים בגיל הפריון — מנגנון שעומד להסתיים. באוכלוסייה היהודית להפך: מספר הנשים בגילי 25–29 צפוי לגדול ב-14% עד 2030, ולכן חלקן של הלידות היהודיות עלה ל-<b>74.3%</b> ב-2025.</p>
+        <p><b>ילדים שנולדו בפועל (CEB) — ירידה חדה בכל רמות הדתיות:</b></p>
+        <div class="stats">
+          <div class="stat"><div class="n">1.42 → 1.12</div><div class="l">חילוניות/מסורתיות, גילי 30–34 (2004→2024)</div></div>
+          <div class="stat"><div class="n">2.96 → 2.0</div><div class="l">חרדיות, גילי 25–29 (2004→2024)</div></div>
+          <div class="stat"><div class="n">3.74 → 2.0</div><div class="l">ערביות דתיות, גילי 30–34 (2004→2024)</div></div>
+        </div>
+        <div class="callout"><svg fill="none" stroke-width="2" viewBox="0 0 24 24"><path d="M3 3v18h18M7 14l4-4 3 3 5-6"/></svg><span>תחזית פריון סופי לאמצע המאה: כ-1.6 ילדים ליהודייה חילונית, כ-2.3 לדתייה, וכ-4.3 לחרדית (לעומת כמעט 6 בעבר).</span></div>
+      </div>
+
+      <div class="sec">
+        <div class="stitle"><div class="snum">3</div><h3>ריבוי טבעי — היחלשות הגידול</h3></div>
+        <p>שיעור הריבוי הטבעי (לידות פחות פטירות) ירד מ-<b>1.60% (2016)</b> ל-<b>1.31% (2025)</b>. הירידה חדה במיוחד בחברה הערבית (2.07% → 1.64%) בשל זינוק של 43% בפטירות עקב הזדקנות. עד 2040 צפוי הריבוי הטבעי הכולל לרדת לכ-1.0%, והפער בין יהודים לערבים יהיה מזערי — מה שיהפוך את ישראל לתלויה בהגירה כדי לשמור על צמיחה.</p>
+      </div>
+
+      <div class="sec">
+        <div class="stitle"><div class="snum">4</div><h3>הגירה — המנוע המרכזי לשינוי</h3></div>
+        <p>ב-2024, לראשונה מזה עשורים, ההגירה נטו הפכה שלילית (-26,000); ב-2025 הפער צפוי להגיע ל-<b>37,000 איש</b>. שינוי קריטריוני המדידה של הלמ"ס ב-2023 ניפח סטטיסטית את המספרים — אך העלייה האמיתית בעזיבה החלה ב-2023, ומספר המהגרים ב-2024–2025 הכפיל את עצמו לעומת 2018. מודל החיזוי צופה המשך עזיבה גבוהה לפחות עד יוני 2026 (כ-3,800 איש בחודש).</p>
+        <p><b>חמש עובדות מפתח:</b></p>
+        <ul class="flist">
+          <li><b>עלייה מול קיפאון:</b> מספר העוזבים עולה, בעוד מספר החוזרים קבוע ואף צנח לפחות מ-19,000 ב-2025.</li>
+          <li><b>השוואה בין-לאומית:</b> שיעור ההגירה ב-2024 עמד על 83 לכל 10,000 — גבוה לישראל, אך רק מעט מעל חציון האיחוד האירופי (81.3).</li>
+          <li><b>הגירה מחדש:</b> 58% מהעוזבים ב-2024 היו עולים ילידי חוץ, שליש מהם "עולים מזדמנים" שעלו רק ב-2022.</li>
+          <li><b>קבוצת ה"אחרים":</b> שיעור עזיבה חריג — 391 מכל 10,000 (לעומת 48 יהודים, 16 ערבים); הקבוצה התכווצה בכ-32,000 איש.</li>
+          <li><b>גיוון יעדים:</b> זינוק במעבר לאירופה (גרמניה +9,000 ב-2023, קפריסין) — "הגירת סגנון חיים" המונעת מאורח חיים ופוליטיקה יותר מכלכלה.</li>
+        </ul>
+      </div>
+
+      <div class="sec">
+        <div class="stitle"><div class="snum">5</div><h3>סיכום והשלכות</h3></div>
+        <p>הגירה נטו שלילית אמיתית במשך שנתיים–שלוש רצופות היא <b>אירוע חסר תקדים</b> בתולדות המדינה, וקצב הגידול של 0.9% משקף מעבר למשטר דמוגרפי חדש הדומה למדינות מפותחות. בטווח הקצר ייתכנו השלכות חיוביות, כמו הפחתת לחץ על שוק הדיור. השאלה אם מדובר בהפסד אסטרטגי תלויה בכישורי העוזבים מול הנשארים ובשיעור החוזרים — נתונים שיובהרו רק לקראת אפריל 2027. ההמלצה: להרחיב את מנגנוני ניהול ההגירה ולהחילם גם על ישראלים חוזרים.</p>
+      </div>
+
+    </div>
+
+    <div class="day-nav">
+      <button class="pill" data-go="bg"><svg fill="none" stroke-width="2" viewBox="0 0 24 24"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>חזרה למידע ורקע</button>
+      <span></span>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="big">נתראה בדרום <span class="sand">·</span> נסיעה טובה</div>
+  <div>סיור לימודי בנגב · 7–8 ביוני 2026</div>
+</footer>
+
+<script>
+  const pages=document.querySelectorAll('.page');
+  const navBtns=document.querySelectorAll('.nav button');
+  function go(id){
+    pages.forEach(p=>p.classList.toggle('show',p.id===id));
+    navBtns.forEach(b=>b.classList.toggle('active',b.dataset.go===id));
+    window.scrollTo({top:0,behavior:'instant'in window?'instant':'auto'});
+  }
+  document.querySelectorAll('[data-go]').forEach(el=>el.addEventListener('click',()=>go(el.dataset.go)));
+</script>
+
+</body>
+</html>
